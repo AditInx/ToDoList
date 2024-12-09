@@ -17,6 +17,9 @@ const addTask = () =>
     li.appendChild( span );
   }
   inputBox.value = "";
+
+  //whenever users adds a task it should save the data
+  saveData();
 }
 
 
@@ -25,9 +28,28 @@ listContainer.addEventListener( "click", function ( e )
   if ( e.target.tagName === "LI" )
   {
     e.target.classList.toggle( "checked" );
+    saveData();
   }
   else if ( e.target.tagName === "SPAN" )
   {
     e.target.parentElement.remove();
+    saveData();
   }
 }, false );
+
+
+function saveData ()
+{
+  localStorage.setItem( "data", listContainer.innerHTML );
+}
+
+
+
+
+//displaying our data whenever we open our browser again
+function showTask ()
+{
+  listContainer.innerHTML = localStorage.getItem( "data" );
+}
+
+showTask();
